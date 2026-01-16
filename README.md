@@ -1,6 +1,6 @@
 ﻿# DoseDynamics
 
-DoseDynamics is a config-driven analysis pipeline for DLC-based open-field experiments. It refactors legacy scripts into a modular, object-oriented package with a CLI, structured logging, and reproducible configs.
+DoseDynamics is a config-driven analysis pipeline for DLC-based open-field experiments.
 
 ## Installation
 
