@@ -1,0 +1,9 @@
+2026-01-16 15:17:13 | INFO | dosedynamics | Saved arrest plots to reports\figures
+2026-01-16 15:20:33 | INFO | dosedynamics | Saved dispersion plot to reports\figures
+2026-01-16 15:34:15 | INFO | dosedynamics | Saved processed bins to data\processed\tca_bins.parquet
+2026-01-16 15:45:19 | INFO | dosedynamics | Saved processed bins to data\processed\tca_bins.parquet
+2026-01-16 15:48:26 | INFO | dosedynamics | Saved processed bins to data\processed\tca_bins.parquet
+2026-01-16 15:49:08 | INFO | dosedynamics | Saved figures to reports\figures
+2026-01-16 15:58:47 | INFO | dosedynamics | Saved processed bins to data\processed\tca_bins.parquet
+2026-01-16 15:58:51 | INFO | dosedynamics | Saved figures to reports\figures
+2026-01-16 16:01:39 | INFO | dosedynamics | Saved thigmotaxis plot to reports\figures
