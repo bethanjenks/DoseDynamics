@@ -18,19 +18,6 @@
 14. Optionally run arrest analysis.
 15. Optionally run center crossings analysis.
 
-## Old script to new module mapping
-
-- `make_dlc_dataframe.py` -> `src/dosedynamics/preprocessing/assemble.py`
-- `get_arena_points.py` -> `src/dosedynamics/preprocessing/arena_points.py`
-- `average_speed_bins.py` -> `src/dosedynamics/analysis/speed_bins.py`
-- `calulate_speed_distance_travelled.py` -> `src/dosedynamics/analysis/speed_distance.py`
-- `calculate_thigmotaxis.py` -> `src/dosedynamics/analysis/thigmotaxis.py`
-- `calculate_dispersion.py` -> `src/dosedynamics/analysis/dispersion.py`
-- `arrest_detection.py` -> `src/dosedynamics/analysis/arrest_analysis.py`
-- `calculate_center_crossings.py` -> `src/dosedynamics/analysis/center_crossings.py`
-- `TCA_per_mouse.py` -> `src/dosedynamics/analysis/tca_per_animal.py`
-- `tools.py` (MEC, stats) -> `src/dosedynamics/preprocessing/mec.py`, `src/dosedynamics/analysis/stats.py`
-
 ## Extension points
 
 - Add new analyses in `src/dosedynamics/analysis/` and wire them into `src/dosedynamics/pipeline.py`.
