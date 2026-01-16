@@ -12,6 +12,7 @@ __pycache__/
 
 # Reports
 /reports/figures/
+/reports/logs/
 
 # OS
 .DS_Store
