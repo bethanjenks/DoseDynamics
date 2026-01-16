@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import List
@@ -35,7 +35,9 @@ class ArrestAnalysis:
         group_by_cols = group_cols + extra_cols
 
         arrest_list: List[pd.DataFrame] = []
-        cutoff_frames = int(self.cfg.preprocessing.cutoff_minutes * 60 * self.cfg.preprocessing.fps)
+        cutoff_frames = int(
+            self.cfg.preprocessing.cutoff_minutes * 60 * self.cfg.preprocessing.fps
+        )
 
         for _, g in data_full.groupby(group_by_cols, sort=False):
             g_time = g.head(cutoff_frames)
@@ -76,9 +78,7 @@ class ArrestAnalysis:
             )
 
         stops_per_session = (
-            arrests_all.groupby(group_by_cols)
-            .size()
-            .reset_index(name="n_stops")
+            arrests_all.groupby(group_by_cols).size().reset_index(name="n_stops")
         )
 
         mean_duration_per_session = (

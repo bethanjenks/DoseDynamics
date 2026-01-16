@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dosedynamics.analysis.arrest_analysis import ArrestAnalysis
 from dosedynamics.analysis.center_crossings import CenterCrossingsAnalysis
@@ -16,8 +16,8 @@ from dosedynamics.plotting.speed_bins import SpeedBinsPlotter
 from dosedynamics.plotting.speed_distance import SpeedDistancePlotter
 from dosedynamics.plotting.tca import TCAPlotter
 from dosedynamics.plotting.thigmotaxis import ThigmotaxisPlotter
-from dosedynamics.preprocessing.assemble import DLCCombinedBuilder
 from dosedynamics.preprocessing.arena_points import ArenaPointsAnnotator
+from dosedynamics.preprocessing.assemble import DLCCombinedBuilder
 from dosedynamics.utils.paths import PathManager
 
 
@@ -40,12 +40,18 @@ class Pipeline:
             bin_seconds=cfg.preprocessing.bin_seconds,
             control_group=cfg.analysis.tca.control_group,
         )
-        self.speed_bins_plotter = SpeedBinsPlotter(cfg.plotting, cfg.analysis.speed_bins)
+        self.speed_bins_plotter = SpeedBinsPlotter(
+            cfg.plotting, cfg.analysis.speed_bins
+        )
         self.speed_distance_plotter = SpeedDistancePlotter(
             cfg.plotting, cfg.analysis.speed_distance
         )
-        self.thigmotaxis_plotter = ThigmotaxisPlotter(cfg.plotting, cfg.analysis.thigmotaxis)
-        self.dispersion_plotter = DispersionPlotter(cfg.plotting, cfg.analysis.dispersion)
+        self.thigmotaxis_plotter = ThigmotaxisPlotter(
+            cfg.plotting, cfg.analysis.thigmotaxis
+        )
+        self.dispersion_plotter = DispersionPlotter(
+            cfg.plotting, cfg.analysis.dispersion
+        )
         self.center_crossings_plotter = CenterCrossingsPlotter(
             cfg.plotting, cfg.analysis.center_crossings
         )
@@ -65,7 +71,9 @@ class Pipeline:
 
     def run_speed_bins(self) -> None:
         results = self.speed_bins.run()
-        fig, _ = self.speed_bins_plotter.plot_distribution(results.bin_speeds, results.stats)
+        fig, _ = self.speed_bins_plotter.plot_distribution(
+            results.bin_speeds, results.stats
+        )
         if self.cfg.analysis.speed_bins.save_figures:
             figures_dir = self.paths.figures_dir()
             save_figure(fig, figures_dir / self.cfg.analysis.speed_bins.output_filename)
@@ -78,7 +86,9 @@ class Pipeline:
                 results.per_group, metric, stats
             )
             if self.cfg.analysis.speed_distance.save_figures:
-                output_name = self.cfg.analysis.speed_distance.metrics[metric].output_filename
+                output_name = self.cfg.analysis.speed_distance.metrics[
+                    metric
+                ].output_filename
                 figures_dir = self.paths.figures_dir()
                 save_figure(fig, figures_dir / output_name)
                 self.logger.info("Saved %s plot to %s", metric, figures_dir)
@@ -88,12 +98,16 @@ class Pipeline:
         fig, _ = self.thigmotaxis_plotter.plot_metric(results.per_group, results.stats)
         if self.cfg.analysis.thigmotaxis.save_figures:
             figures_dir = self.paths.figures_dir()
-            save_figure(fig, figures_dir / self.cfg.analysis.thigmotaxis.output_filename)
+            save_figure(
+                fig, figures_dir / self.cfg.analysis.thigmotaxis.output_filename
+            )
             self.logger.info("Saved thigmotaxis plot to %s", figures_dir)
 
     def run_dispersion(self) -> None:
         results = self.dispersion.run()
-        fig, _ = self.dispersion_plotter.plot_distributions(results.per_bin, results.stats)
+        fig, _ = self.dispersion_plotter.plot_distributions(
+            results.per_bin, results.stats
+        )
         if self.cfg.analysis.dispersion.save_figures:
             figures_dir = self.paths.figures_dir()
             save_figure(fig, figures_dir / self.cfg.analysis.dispersion.output_filename)
@@ -106,7 +120,9 @@ class Pipeline:
         )
         if self.cfg.analysis.center_crossings.save_figures:
             figures_dir = self.paths.figures_dir()
-            save_figure(fig, figures_dir / self.cfg.analysis.center_crossings.output_filename)
+            save_figure(
+                fig, figures_dir / self.cfg.analysis.center_crossings.output_filename
+            )
             self.logger.info("Saved center crossings plot to %s", figures_dir)
 
     def run_arrests(self) -> None:
@@ -123,9 +139,21 @@ class Pipeline:
         fig_hist, _ = self.arrest_plotter.plot_duration_histogram(results.arrests)
         if self.cfg.analysis.arrest_analysis.save_figures:
             figures_dir = self.paths.figures_dir()
-            save_figure(fig_counts, figures_dir / self.cfg.analysis.arrest_analysis.stop_count.output_filename)
-            save_figure(fig_duration, figures_dir / self.cfg.analysis.arrest_analysis.mean_duration.output_filename)
-            save_figure(fig_hist, figures_dir / self.cfg.analysis.arrest_analysis.duration_hist.output_filename)
+            save_figure(
+                fig_counts,
+                figures_dir
+                / self.cfg.analysis.arrest_analysis.stop_count.output_filename,
+            )
+            save_figure(
+                fig_duration,
+                figures_dir
+                / self.cfg.analysis.arrest_analysis.mean_duration.output_filename,
+            )
+            save_figure(
+                fig_hist,
+                figures_dir
+                / self.cfg.analysis.arrest_analysis.duration_hist.output_filename,
+            )
             self.logger.info("Saved arrest plots to %s", figures_dir)
 
     def run_tca(self) -> None:
@@ -145,8 +173,12 @@ class Pipeline:
 
         if self.cfg.plotting.save.enabled:
             figures_dir = self.paths.figures_dir()
-            save_figure(fig_factors, figures_dir / self.cfg.plotting.save.factors_filename)
-            save_figure(fig_loadings, figures_dir / self.cfg.plotting.save.loadings_filename)
+            save_figure(
+                fig_factors, figures_dir / self.cfg.plotting.save.factors_filename
+            )
+            save_figure(
+                fig_loadings, figures_dir / self.cfg.plotting.save.loadings_filename
+            )
             self.logger.info("Saved figures to %s", figures_dir)
 
     def run(self) -> None:

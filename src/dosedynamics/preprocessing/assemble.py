@@ -1,9 +1,9 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from pathlib import Path
-import re
-from typing import Dict, List
+from typing import Dict
 
 import cv2
 import numpy as np
@@ -39,7 +39,9 @@ class DLCCombinedBuilder:
     def _parse_field(self, field_cfg: MetadataFieldConfig, source_text: str) -> str:
         match = re.search(field_cfg.pattern, source_text)
         if not match:
-            raise ValueError(f"Pattern '{field_cfg.pattern}' did not match '{source_text}'")
+            raise ValueError(
+                f"Pattern '{field_cfg.pattern}' did not match '{source_text}'"
+            )
         if field_cfg.name not in match.groupdict():
             raise ValueError(
                 f"Pattern '{field_cfg.pattern}' must define '{field_cfg.name}'"

@@ -1,9 +1,6 @@
-﻿from __future__ import annotations
-
-from typing import List
+from __future__ import annotations
 
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
 from dosedynamics.analysis.stats import p_to_star
@@ -24,7 +21,11 @@ class SpeedBinsPlotter:
         bin_speeds: pd.DataFrame,
         stats: list[dict],
     ) -> tuple:
-        concs = [c for c in self.plot_cfg.plot_order if c in bin_speeds["concentration"].unique()]
+        concs = [
+            c
+            for c in self.plot_cfg.plot_order
+            if c in bin_speeds["concentration"].unique()
+        ]
         control_vals = bin_speeds.loc[
             bin_speeds["concentration"] == self.speed_cfg.control_group, "bin_speed"
         ].values
@@ -34,7 +35,10 @@ class SpeedBinsPlotter:
         fig, axes = plt.subplots(
             1,
             len(concs),
-            figsize=(self.speed_cfg.plot.fig_width_per_group * len(concs), self.speed_cfg.plot.fig_height),
+            figsize=(
+                self.speed_cfg.plot.fig_width_per_group * len(concs),
+                self.speed_cfg.plot.fig_height,
+            ),
             sharey=True,
         )
         if len(concs) == 1:
@@ -71,7 +75,11 @@ class SpeedBinsPlotter:
             )
 
             dose = self.plot_cfg.dose_labels.get(conc, conc)
-            ax.set_title(self.speed_cfg.plot.title_template.format(dose=dose, dose_unit=self.plot_cfg.dose_unit))
+            ax.set_title(
+                self.speed_cfg.plot.title_template.format(
+                    dose=dose, dose_unit=self.plot_cfg.dose_unit
+                )
+            )
             ax.set_xlabel(self.speed_cfg.plot.xlabel)
             ax.set_ylabel(self.speed_cfg.plot.ylabel)
             ax.set_xlim(hist_range)

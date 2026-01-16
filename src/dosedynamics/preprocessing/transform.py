@@ -1,8 +1,8 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
+import cv2
 import numpy as np
 import pandas as pd
-import cv2
 
 
 def transform_dlc_coords_to_cm(df: pd.DataFrame, matrix: np.ndarray) -> pd.DataFrame:

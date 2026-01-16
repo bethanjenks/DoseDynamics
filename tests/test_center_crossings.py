@@ -1,4 +1,4 @@
-﻿from dosedynamics.config import CenterCrossingsConfig
+from dosedynamics.config import CenterCrossingsConfig
 
 
 def test_center_crossings_config():

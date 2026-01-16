@@ -1,4 +1,3 @@
-﻿from dosedynamics.analysis.dispersion import DispersionAnalysis
 from dosedynamics.config import DispersionConfig
 
 

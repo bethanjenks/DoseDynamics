@@ -1,8 +1,8 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from dosedynamics.analysis.stats import p_to_star
 from dosedynamics.config import CenterCrossingsConfig, PlottingConfig
@@ -14,7 +14,11 @@ class CenterCrossingsPlotter:
         self.cfg = cfg
 
     def plot_crossings(self, per_group: pd.DataFrame, stats: list[dict]) -> tuple:
-        concs = [c for c in self.plot_cfg.plot_order if c in per_group["concentration"].unique()]
+        concs = [
+            c
+            for c in self.plot_cfg.plot_order
+            if c in per_group["concentration"].unique()
+        ]
         x = np.arange(len(concs))
 
         grouped = per_group.groupby("concentration")["center_crossings"]
@@ -37,7 +41,9 @@ class CenterCrossingsPlotter:
         )
 
         for i, conc in enumerate(concs):
-            vals = per_group[per_group["concentration"] == conc]["center_crossings"].values
+            vals = per_group[per_group["concentration"] == conc][
+                "center_crossings"
+            ].values
             if len(vals) == 0:
                 continue
             jitter = (np.random.rand(len(vals)) - 0.5) * self.plot_cfg.jitter.box
@@ -51,7 +57,9 @@ class CenterCrossingsPlotter:
             )
 
         ax.set_xticks(x)
-        ax.set_xticklabels([self.plot_cfg.dose_labels.get(c, c) for c in concs], fontsize=12)
+        ax.set_xticklabels(
+            [self.plot_cfg.dose_labels.get(c, c) for c in concs], fontsize=12
+        )
         ax.set_xlabel(self.plot_cfg.loadings.xlabel_dose, fontsize=12)
         ax.set_ylabel(self.cfg.ylabel, fontsize=12)
         ax.set_title(self.cfg.title, fontsize=13)

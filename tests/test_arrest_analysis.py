@@ -1,4 +1,8 @@
-﻿from dosedynamics.config import ArrestAnalysisConfig, ArrestHistogramConfig, ArrestMetricConfig
+from dosedynamics.config import (
+    ArrestAnalysisConfig,
+    ArrestHistogramConfig,
+    ArrestMetricConfig,
+)
 
 
 def test_arrest_analysis_config():

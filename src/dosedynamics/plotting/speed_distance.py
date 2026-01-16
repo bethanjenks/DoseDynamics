@@ -1,6 +1,4 @@
-﻿from __future__ import annotations
-
-from typing import List
+from __future__ import annotations
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -11,7 +9,9 @@ from dosedynamics.config import PlottingConfig, SpeedDistanceConfig
 
 
 class SpeedDistancePlotter:
-    def __init__(self, plot_cfg: PlottingConfig, speed_cfg: SpeedDistanceConfig) -> None:
+    def __init__(
+        self, plot_cfg: PlottingConfig, speed_cfg: SpeedDistanceConfig
+    ) -> None:
         self.plot_cfg = plot_cfg
         self.speed_cfg = speed_cfg
 
@@ -21,7 +21,11 @@ class SpeedDistancePlotter:
         metric: str,
         stats: list[dict],
     ) -> tuple:
-        concs = [c for c in self.plot_cfg.plot_order if c in per_group["concentration"].unique()]
+        concs = [
+            c
+            for c in self.plot_cfg.plot_order
+            if c in per_group["concentration"].unique()
+        ]
         x = np.arange(len(concs))
 
         grouped = per_group.groupby("concentration")[metric]
@@ -58,7 +62,9 @@ class SpeedDistancePlotter:
             )
 
         ax.set_xticks(x)
-        ax.set_xticklabels([self.plot_cfg.dose_labels.get(c, c) for c in concs], fontsize=12)
+        ax.set_xticklabels(
+            [self.plot_cfg.dose_labels.get(c, c) for c in concs], fontsize=12
+        )
         ax.set_xlabel(self.plot_cfg.loadings.xlabel_dose, fontsize=12)
         ax.set_ylabel(self.speed_cfg.metrics[metric].ylabel, fontsize=12)
         ax.set_title(self.speed_cfg.metrics[metric].title, fontsize=13)

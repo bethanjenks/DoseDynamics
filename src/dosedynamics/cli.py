@@ -1,4 +1,4 @@
-﻿import argparse
+import argparse
 from typing import List
 
 from dosedynamics.config import load_config
@@ -55,7 +55,9 @@ def _arena_overrides(args: argparse.Namespace) -> List[str]:
 
 def main(argv: List[str] | None = None) -> None:
     args = _parse_args(argv)
-    overrides = _arena_overrides(args) if args.command == "arena-points" else args.overrides
+    overrides = (
+        _arena_overrides(args) if args.command == "arena-points" else args.overrides
+    )
     cfg = load_config(args.config, overrides)
     logger = setup_logging(cfg)
 

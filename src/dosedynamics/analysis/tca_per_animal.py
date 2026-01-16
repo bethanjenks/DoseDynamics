@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import List
@@ -143,4 +143,3 @@ class TCAPerAnimalAnalysis:
                     }
                 )
         return pd.DataFrame(rows)
-

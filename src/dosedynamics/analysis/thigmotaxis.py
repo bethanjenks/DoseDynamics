@@ -1,7 +1,6 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, List
 
 import numpy as np
 import pandas as pd
@@ -77,9 +76,13 @@ class ThigmotaxisAnalysis:
             meta_cols=self.cfg.input.meta_cols,
         )
 
-        cutoff_frames = int(self.cfg.preprocessing.cutoff_minutes * 60 * self.cfg.preprocessing.fps)
+        cutoff_frames = int(
+            self.cfg.preprocessing.cutoff_minutes * 60 * self.cfg.preprocessing.fps
+        )
         df_time = (
-            body_df[body_df["likelihood"] >= self.cfg.preprocessing.likelihood_threshold]
+            body_df[
+                body_df["likelihood"] >= self.cfg.preprocessing.likelihood_threshold
+            ]
             .groupby(self.cfg.input.group_cols, group_keys=False)
             .apply(lambda g: g.head(cutoff_frames))
         )
@@ -89,13 +92,17 @@ class ThigmotaxisAnalysis:
 
         for col in self.cfg.input.meta_cols:
             if col not in thig_df.columns and col in body_df.columns:
-                thig_df[col] = body_df.groupby(self.cfg.input.group_cols)[col].first().values
+                thig_df[col] = (
+                    body_df.groupby(self.cfg.input.group_cols)[col].first().values
+                )
 
         if self.cfg.analysis.thigmotaxis.area_normalize:
             thig_df = self._area_normalize(thig_df)
 
         metric = self.cfg.analysis.thigmotaxis.metric
         groups = {c: g[metric].values for c, g in thig_df.groupby("concentration")}
-        stats = perform_tests(groups, self.cfg.analysis.thigmotaxis.control_group, paired=False)
+        stats = perform_tests(
+            groups, self.cfg.analysis.thigmotaxis.control_group, paired=False
+        )
 
         return ThigmotaxisResults(per_group=thig_df, stats=stats)

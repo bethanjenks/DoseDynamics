@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import List
@@ -42,8 +42,8 @@ class CenterCrossingsAnalysis:
         )
 
         ic = df2["in_center"].values
-        entries = np.where((ic[1:] == True) & (ic[:-1] == False))[0]
-        exits = np.where((ic[1:] == False) & (ic[:-1] == True))[0]
+        entries = np.where(ic[1:] & ~ic[:-1])[0]
+        exits = np.where(~ic[1:] & ic[:-1])[0]
 
         crossings = 0
         for e in entries:
@@ -69,9 +69,13 @@ class CenterCrossingsAnalysis:
             meta_cols=self.cfg.input.meta_cols,
         )
 
-        cutoff_frames = int(self.cfg.preprocessing.cutoff_minutes * 60 * self.cfg.preprocessing.fps)
+        cutoff_frames = int(
+            self.cfg.preprocessing.cutoff_minutes * 60 * self.cfg.preprocessing.fps
+        )
         df_time = (
-            body_df[body_df["likelihood"] >= self.cfg.preprocessing.likelihood_threshold]
+            body_df[
+                body_df["likelihood"] >= self.cfg.preprocessing.likelihood_threshold
+            ]
             .groupby(self.cfg.input.group_cols, group_keys=False)
             .apply(lambda g: g.head(cutoff_frames))
         )
@@ -96,6 +100,8 @@ class CenterCrossingsAnalysis:
             conc: g["center_crossings"].values
             for conc, g in center_df.groupby("concentration")
         }
-        stats = perform_tests(groups, self.cfg.analysis.center_crossings.control_group, paired=False)
+        stats = perform_tests(
+            groups, self.cfg.analysis.center_crossings.control_group, paired=False
+        )
 
         return CenterCrossingsResults(per_group=center_df, stats=stats)

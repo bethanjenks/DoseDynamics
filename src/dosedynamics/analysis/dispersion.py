@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Dict, List
@@ -62,10 +62,14 @@ class DispersionAnalysis:
         groups = {
             conc: g["radius"].values for conc, g in mec_clean.groupby("concentration")
         }
-        stats = perform_tests(groups, self.cfg.analysis.dispersion.control_group, paired=False)
+        stats = perform_tests(
+            groups, self.cfg.analysis.dispersion.control_group, paired=False
+        )
 
         return DispersionResults(per_bin=mec_clean, stats=stats)
 
     @staticmethod
-    def get_effect_size(groups: Dict[str, np.ndarray], control: str, conc: str) -> float:
+    def get_effect_size(
+        groups: Dict[str, np.ndarray], control: str, conc: str
+    ) -> float:
         return get_cohens_d(groups[conc], groups[control])

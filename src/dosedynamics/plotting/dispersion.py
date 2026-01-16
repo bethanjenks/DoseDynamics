@@ -1,7 +1,7 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import math
-from typing import Dict, List, Tuple
+from typing import Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -38,7 +38,10 @@ class DispersionPlotter:
         fig, axes = plt.subplots(
             rows,
             cols,
-            figsize=(self.disp_cfg.plot.fig_width, self.disp_cfg.plot.fig_height_per_row * rows),
+            figsize=(
+                self.disp_cfg.plot.fig_width,
+                self.disp_cfg.plot.fig_height_per_row * rows,
+            ),
         )
         axes = np.atleast_1d(axes).ravel()
 
@@ -54,7 +57,10 @@ class DispersionPlotter:
                 color=self.plot_cfg.color_map.get(conc, "gray"),
                 edgecolor=self.disp_cfg.hist.edge_color,
                 alpha=self.disp_cfg.hist.alpha_group,
-                label=f"{self.plot_cfg.dose_labels.get(conc, conc)} {self.plot_cfg.dose_unit}",
+                label=(
+                    f"{self.plot_cfg.dose_labels.get(conc, conc)}"
+                    f"{self.plot_cfg.dose_unit}"
+                ),
             )
             ax.hist(
                 groups[control],
@@ -62,7 +68,10 @@ class DispersionPlotter:
                 color=self.plot_cfg.color_map.get(control, "gray"),
                 edgecolor=self.disp_cfg.hist.edge_color,
                 alpha=self.disp_cfg.hist.alpha_control,
-                label=f"{self.plot_cfg.dose_labels.get(control, control)} {self.plot_cfg.dose_unit} (control)",
+                label=(
+                    f"{self.plot_cfg.dose_labels.get(control, control)}"
+                    f"{self.plot_cfg.dose_unit} (control)"
+                ),
             )
 
             p_row = next((r for r in stats if r.get("conc_other") == conc), None)
@@ -91,7 +100,7 @@ class DispersionPlotter:
                 spine.set_linewidth(self.plot_cfg.style.line_width)
             ax.legend(fontsize=10)
 
-        for ax in axes[len(concs):]:
+        for ax in axes[len(concs) :]:
             ax.axis("off")
 
         fig.tight_layout()

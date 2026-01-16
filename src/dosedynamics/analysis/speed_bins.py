@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import List
@@ -26,8 +26,12 @@ class SpeedBinsAnalysis:
         self.paths = PathManager(cfg)
 
     def _compute_bin_speeds(self, g: pd.DataFrame) -> pd.DataFrame:
-        max_frames = int(self.cfg.preprocessing.cutoff_minutes * 60 * self.cfg.preprocessing.fps)
-        frames_per_bin = int(self.cfg.analysis.speed_bins.bin_seconds * self.cfg.preprocessing.fps)
+        max_frames = int(
+            self.cfg.preprocessing.cutoff_minutes * 60 * self.cfg.preprocessing.fps
+        )
+        frames_per_bin = int(
+            self.cfg.analysis.speed_bins.bin_seconds * self.cfg.preprocessing.fps
+        )
 
         g = g.head(max_frames)
         g = g[g["likelihood"] >= self.cfg.preprocessing.likelihood_threshold].copy()
@@ -45,7 +49,9 @@ class SpeedBinsAnalysis:
             .agg(total_distance="sum", n_frames="count")
             .reset_index()
         )
-        agg["bin_speed"] = agg["total_distance"] / self.cfg.analysis.speed_bins.bin_seconds
+        agg["bin_speed"] = (
+            agg["total_distance"] / self.cfg.analysis.speed_bins.bin_seconds
+        )
 
         for col in self.cfg.input.meta_cols:
             agg[col] = g[col].iat[0]
@@ -75,5 +81,7 @@ class SpeedBinsAnalysis:
         groups = {
             c: g["bin_speed"].values for c, g in bin_speeds.groupby("concentration")
         }
-        stats = perform_tests(groups, self.cfg.analysis.speed_bins.control_group, paired=False)
+        stats = perform_tests(
+            groups, self.cfg.analysis.speed_bins.control_group, paired=False
+        )
         return SpeedBinsResults(bin_speeds=bin_speeds, stats=stats)

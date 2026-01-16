@@ -1,6 +1,4 @@
-﻿from __future__ import annotations
-
-from math import erfc, sqrt
+from __future__ import annotations
 
 import numpy as np
 from scipy.stats import mannwhitneyu, wilcoxon
@@ -21,7 +19,14 @@ def perform_tests(groups, control, paired=False):
         else:
             stat, p = mannwhitneyu(groups[control], vals, alternative="two-sided")
             stat_name = "U_stat"
-        out.append({"comparison": f"{control} vs {conc}", "conc_other": conc, stat_name: stat, "p_value": p})
+        out.append(
+            {
+                "comparison": f"{control} vs {conc}",
+                "conc_other": conc,
+                stat_name: stat,
+                "p_value": p,
+            }
+        )
     return out
 
 

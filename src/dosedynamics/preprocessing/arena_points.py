@@ -1,8 +1,8 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
+import sys
 from dataclasses import dataclass
 from pathlib import Path
-import sys
 from typing import List
 
 import cv2
@@ -89,7 +89,9 @@ class ArenaPointsAnnotator:
         )
         return frame, info
 
-    def _write_points(self, pts: List[tuple], frame_info: FrameInfo, video_path: Path) -> None:
+    def _write_points(
+        self, pts: List[tuple], frame_info: FrameInfo, video_path: Path
+    ) -> None:
         self._ensure_table(self.paths.resolve(self.cfg.arena_points.output_h5))
         df = pd.DataFrame(
             {
@@ -105,7 +107,9 @@ class ArenaPointsAnnotator:
             }
         )
         with pd.HDFStore(self.paths.resolve(self.cfg.arena_points.output_h5)) as store:
-            store.append(self.cfg.arena_points.h5_key, df, format="table", data_columns=True)
+            store.append(
+                self.cfg.arena_points.h5_key, df, format="table", data_columns=True
+            )
 
     def run(self) -> None:
         video_path = self.paths.resolve(self.cfg.arena_points.video_path)
@@ -120,7 +124,9 @@ class ArenaPointsAnnotator:
 
         def hud(img, text, y):
             cv2.putText(img, text, (10, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 3)
-            cv2.putText(img, text, (10, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
+            cv2.putText(
+                img, text, (10, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1
+            )
 
         def redraw():
             disp[:] = frame
@@ -142,7 +148,11 @@ class ArenaPointsAnnotator:
 
             hud(
                 disp,
-                f"{video_path.name} | time {frame_info.timestamp_seconds:.3f}s | frame {frame_info.frame_index}",
+                (
+                    f"{video_path.name} | "
+                    f"time {frame_info.timestamp_seconds:.3f}s | "
+                    f"frame {frame_info.frame_index}"
+                ),
                 24,
             )
             order_label = " -> ".join(self.cfg.arena_points.click_order)
@@ -177,7 +187,11 @@ class ArenaPointsAnnotator:
                     self.logger.info("Click %s points before saving", click_count)
                     continue
                 self._write_points(pts, frame_info, video_path)
-                self.logger.info("Saved %s points to %s", click_count, self.cfg.arena_points.output_h5)
+                self.logger.info(
+                    "Saved %s points to %s",
+                    click_count,
+                    self.cfg.arena_points.output_h5,
+                )
 
         cv2.destroyAllWindows()
 
@@ -189,6 +203,7 @@ def run_arena_points(cfg: Config, logger) -> None:
         logger.error("Arena point annotation failed: %s", exc)
         sys.exit(1)
 
+
 ## python -m dosedynamics arena-points --config configs/default.yaml \
-  ## arena_points.video_path="C:\Users\BlackRig-33-1\Desktop\videos_training\20221207_05488_M-003.mp4" \
-  ## arena_points.time=60
+## arena_points.video_path="/path/to/video.mp4" \
+## arena_points.time=60

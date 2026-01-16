@@ -93,9 +93,7 @@ def compute_bin_features(
     g["bin_id"] = g.index // frames_per_bin
 
     speed_mean = g.groupby("bin_id")["speed_cms"].mean().rename("speed_cms")
-    dist_mean = (
-        g.groupby("bin_id")["dist_from_wall"].mean().rename("dist_from_wall")
-    )
+    dist_mean = g.groupby("bin_id")["dist_from_wall"].mean().rename("dist_from_wall")
     agg = pd.concat([speed_mean, dist_mean], axis=1).reset_index()
 
     mec_df = mec_time_bins(

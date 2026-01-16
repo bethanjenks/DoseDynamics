@@ -1,4 +1,3 @@
-﻿from dosedynamics.analysis.thigmotaxis import ThigmotaxisAnalysis
 from dosedynamics.config import ThigmotaxisConfig
 
 

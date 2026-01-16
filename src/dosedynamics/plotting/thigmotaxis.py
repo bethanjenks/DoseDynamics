@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -15,7 +15,11 @@ class ThigmotaxisPlotter:
 
     def plot_metric(self, per_group: pd.DataFrame, stats: list[dict]) -> tuple:
         metric = self.thig_cfg.metric
-        concs = [c for c in self.plot_cfg.plot_order if c in per_group["concentration"].unique()]
+        concs = [
+            c
+            for c in self.plot_cfg.plot_order
+            if c in per_group["concentration"].unique()
+        ]
         x = np.arange(len(concs))
 
         grouped = per_group.groupby("concentration")[metric]
@@ -52,9 +56,13 @@ class ThigmotaxisPlotter:
             )
 
         ax.set_xticks(x)
-        ax.set_xticklabels([self.plot_cfg.dose_labels.get(c, c) for c in concs], fontsize=12)
+        ax.set_xticklabels(
+            [self.plot_cfg.dose_labels.get(c, c) for c in concs], fontsize=12
+        )
         ax.set_xlabel(self.plot_cfg.loadings.xlabel_dose, fontsize=12)
-        ax.set_ylabel(self.thig_cfg.metric if self.thig_cfg.metric else "Thigmotaxis", fontsize=12)
+        ax.set_ylabel(
+            self.thig_cfg.metric if self.thig_cfg.metric else "Thigmotaxis", fontsize=12
+        )
         ax.set_title(self.thig_cfg.metric.replace("_", " ").title(), fontsize=13)
 
         ax.tick_params(axis="x", length=5, width=self.plot_cfg.style.line_width)
