@@ -1,6 +1,6 @@
-﻿# DoseDynamics
+# DoseDynamics
 
-DoseDynamics is a config-driven analysis pipeline for DLC-based open-field experiments.
+DoseDynamics is a config-driven analysis pipeline for DLC-based open-field experiments. 
 
 ## Installation
 
@@ -49,7 +49,9 @@ python -m dosedynamics assemble --config configs/default.yaml
 
 All paths, filename patterns, and metadata parsing rules are in `dataset_build` in the config.
 
-## Average Speed Bins
+# Locomotion analysis
+
+## Average Speed
 
 Compute per-bin mean speeds and plot dose-vs-control histograms.
 
@@ -69,15 +71,6 @@ python -m dosedynamics speed-distance --config configs/default.yaml
 
 Parameters for this analysis live under `analysis.speed_distance` in the config.
 
-## Thigmotaxis
-
-Compute thigmotaxis indices and plot dose-vs-control summaries.
-
-```bash
-python -m dosedynamics thigmotaxis --config configs/default.yaml
-```
-
-Parameters for this analysis live under `analysis.thigmotaxis` in the config.
 
 ## Dispersion (MEC)
 
@@ -89,15 +82,18 @@ python -m dosedynamics dispersion --config configs/default.yaml
 
 Parameters for this analysis live under `analysis.dispersion` in the config.
 
-## Arrests
+# Measures of stress 
 
-Compute behavioural arrest counts and durations with dose-vs-control summaries.
+## Thigmotaxis
+
+Compute thigmotaxis indices and plot dose-vs-control summaries.
 
 ```bash
-python -m dosedynamics arrests --config configs/default.yaml
+python -m dosedynamics thigmotaxis --config configs/default.yaml
 ```
 
-Parameters for this analysis live under `analysis.arrest_analysis` in the config.
+Parameters for this analysis live under `analysis.thigmotaxis` in the config.
+
 
 ## Center Crossings
 
@@ -108,6 +104,17 @@ python -m dosedynamics center-crossings --config configs/default.yaml
 ```
 
 Parameters for this analysis live under `analysis.center_crossings` in the config.
+
+
+## Arrests
+
+Compute behavioural arrest counts and durations with dose-vs-control summaries.
+
+```bash
+python -m dosedynamics arrests --config configs/default.yaml
+```
+
+Parameters for this analysis live under `analysis.arrest_analysis` in the config.
 
 ## Configuration
 
