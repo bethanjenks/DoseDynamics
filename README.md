@@ -6,6 +6,7 @@ DoseDynamics is a research analysis toolbox for DeepLabCut (DLC)–based open-fi
 Pharmacological manipulations can reshape behaviour in subtle and complex ways that are not always captured by a single metric. Changes in locomotion, exploration, stress-related behaviour, or spatial organisation often occur together and reflect broader shifts in behavioural state.
 
 DoseDynamics was built to support this multiscale perspective by providing tools to:
+
 	•	Quantify specific, interpretable behavioural features
 	•	Combine multiple behavioural dimensions into multivariate analyses
 	•	Compare behavioural patterns across dose conditions
