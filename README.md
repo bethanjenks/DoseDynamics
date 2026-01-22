@@ -141,6 +141,7 @@ Run TCA with:
 ```bash
 python -m dosedynamics tca --config configs/default.yaml
 ```
+Parameters for this analysis live under `analysis.TCA` in the config.
 
 ## Configuration
 
@@ -170,8 +171,3 @@ CLI overrides use `key=value` syntax with dotted paths.
 3. Wire the module into `dosedynamics/pipeline.py`.
 4. Add plotting under `src/dosedynamics/plotting/`.
 
-## Reproducing Results
-
-- Use a config file with fixed parameters and paths.
-- Run the pipeline with `python -m dosedynamics run --config <config>`.
-- Outputs are written under `data/processed/` and `reports/figures/`.
