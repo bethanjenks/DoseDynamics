@@ -129,7 +129,7 @@ Parameters for this analysis live under `analysis.arrest_analysis` in the config
 
 ## Multivariate behavioural structure (TCA)
 
-In addition to single-metric locomotion measures, DoseDynamics supports Tensor Component Analysis (TCA) to capture the global structure of behaviour across multiple features. TCA integrates several behavioural metrics into a low-dimensional representation, allowing coordinated, dose-dependent changes in overall behavioural state to be identified. This provides a systems-level view of how pharmacological interventions reshape behaviour, complementing the more interpretable single-feature analyses.
+In addition to single-metric locomotion measures, DoseDynamics includes Tensor Component Analysis (TCA) as a way to explore behaviour at a more global level. TCA combines multiple behavioural features into a low-dimensional representation, making it possible to examine how different aspects of behaviour change together across dose conditions. This helps reveal coordinated, dose-dependent shifts in overall behavioural state that may not be apparent from any single metric alone, and provides a complementary, systems-level perspective on how pharmacological interventions reshape behaviour.
 
 Run TCA with:
 ```bash
