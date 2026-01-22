@@ -1,23 +1,17 @@
 # DoseDynamics
 
-DoseDynamics is an analysis pipeline for DeepLabCut (DLC)–based open-field experiments, designed to quantify how pharmacological interventions reshape free-moving mouse behaviour. It combines interpretable behavioural metrics with multivariate modelling to understand how drug dose modulates both specific actions and the overall structure of behavioural activity.
+DoseDynamics is a research analysis toolbox for DeepLabCut (DLC)–based open-field experiments. It was developed to explore how pharmacological interventions influence free-moving mouse behaviour, both at the level of individual behavioural features and at the level of overall behavioural structure. The code brings together a collection of analysis routines that allow behaviour to be quantified, compared across dose conditions, and interpreted in a unified framework.
 
 ## Scientific motivation
-Pharmacological interventions can alter behaviour in complex ways that are not
-fully captured by any single metric. Changes in activity, exploration, or
-spatial preference often emerge alongside shifts in global behavioural structure.
+Pharmacological manipulations can reshape behaviour in subtle and complex ways that are not always captured by a single metric. Changes in locomotion, exploration, stress-related behaviour, or spatial organisation often occur together and reflect broader shifts in behavioural state.
 
-DoseDynamics was built to support this multiscale view by enabling:
+DoseDynamics was built to support this multiscale perspective by providing tools to:
+	•	Quantify specific, interpretable behavioural features
+	•	Combine multiple behavioural dimensions into multivariate analyses
+	•	Compare behavioural patterns across dose conditions
+	•	Explore how pharmacological perturbations reorganise behavioural activity and structure
 
-- Quantification of specific, interpretable behavioural features  
-- Integration of multiple behavioural dimensions into multivariate models  
-- Comparison of behavioural structure across dose conditions  
-- Systematic evaluation of how pharmacological perturbations reshape activity
-  and behavioural state
-
-Together, these components allow DoseDynamics to be used not only as an
-analysis pipeline, but as a framework for investigating how drugs modulate
-the dynamics and organisation of behaviour.
+Together, these analyses allow DoseDynamics to function as a practical toolbox for investigating how drugs modulate the dynamics and organisation of behaviour in open-field experiments, linking detailed behavioural measures with a broader, systems-level understanding of behavioural change.
 
 ## Installation
 
