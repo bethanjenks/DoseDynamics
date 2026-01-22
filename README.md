@@ -94,7 +94,7 @@ python -m dosedynamics dispersion --config configs/default.yaml
 
 Parameters for this analysis live under `analysis.dispersion` in the config.
 
-# Measures of stress 
+# Measures of stress and anxiety 
 
 ## Thigmotaxis
 
