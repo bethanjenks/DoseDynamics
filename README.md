@@ -1,6 +1,23 @@
 # DoseDynamics
 
-DoseDynamics is a config-driven analysis pipeline for DLC-based open-field experiments. 
+DoseDynamics is an analysis pipeline for DeepLabCut (DLC)–based open-field experiments, designed to quantify how pharmacological interventions reshape free-moving mouse behaviour. It combines interpretable behavioural metrics with multivariate modelling to understand how drug dose modulates both specific actions and the overall structure of behavioural activity.
+
+## Scientific motivation
+Pharmacological interventions can alter behaviour in complex ways that are not
+fully captured by any single metric. Changes in activity, exploration, or
+spatial preference often emerge alongside shifts in global behavioural structure.
+
+DoseDynamics was built to support this multiscale view by enabling:
+
+- Quantification of specific, interpretable behavioural features  
+- Integration of multiple behavioural dimensions into multivariate models  
+- Comparison of behavioural structure across dose conditions  
+- Systematic evaluation of how pharmacological perturbations reshape activity
+  and behavioural state
+
+Together, these components allow DoseDynamics to be used not only as an
+analysis pipeline, but as a framework for investigating how drugs modulate
+the dynamics and organisation of behaviour.
 
 ## Installation
 
@@ -115,6 +132,15 @@ python -m dosedynamics arrests --config configs/default.yaml
 ```
 
 Parameters for this analysis live under `analysis.arrest_analysis` in the config.
+
+## Multivariate behavioural structure (TCA)
+
+In addition to single-metric locomotion measures, DoseDynamics supports Tensor Component Analysis (TCA) to capture the global structure of behaviour across multiple features. TCA integrates several behavioural metrics into a low-dimensional representation, allowing coordinated, dose-dependent changes in overall behavioural state to be identified. This provides a systems-level view of how pharmacological interventions reshape behaviour, complementing the more interpretable single-feature analyses.
+
+Run TCA with:
+```bash
+python -m dosedynamics tca --config configs/default.yaml
+```
 
 ## Configuration
 
