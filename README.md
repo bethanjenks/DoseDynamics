@@ -40,7 +40,7 @@ python -m dosedynamics run --config configs/default.yaml \
 
 This step is used to manually define the four arena corners for each recording using an interactive OpenCV window. The user clicks the corners directly on a video frame, and the selected coordinates are saved to an HDF5 file.
 
-These arena coordinates are then used to transform tracked positions into a common reference space, correcting for differences in camera angle, perspective distortion, or slight shifts in arena placement between recordings. This ensures that spatial analyses (e.g. center occupancy, wall distance, dispersion) are comparable across animals and sessions. 
+These arena coordinates are then used to transform tracked positions into a common reference space, correcting for differences in camera angle, perspective distortion, or slight shifts in arena placement between recordings. This ensures that spatial analyses (e.g. center occupancy, wall distance, dispersion) are comparable across subjects and sessions. 
 
 ```bash
 python -m dosedynamics arena-points --config configs/default.yaml
@@ -55,7 +55,9 @@ python -m dosedynamics arena-points --config configs/default.yaml \
 
 ## Dataset Assembly (make_dlc_dataframe)
 
-Use the assembly step to normalize DLC H5 files, add metadata, and write a combined H5.
+This step consolidates multiple DeepLabCut output files into a single, analysis-ready dataset. It standardizes column formats, extracts and attaches experimental metadata (e.g. date, animal ID, dose condition), and writes a combined HDF5 file that serves as the main input for downstream analyses.
+
+The goal of this stage is to transform raw DLC tracking outputs into a consistent, tidy dataframe structure that can be reused across different analysis modules without further manual preprocessing.
 
 ```bash
 python -m dosedynamics assemble --config configs/default.yaml
@@ -64,6 +66,7 @@ python -m dosedynamics assemble --config configs/default.yaml
 All paths, filename patterns, and metadata parsing rules are in `dataset_build` in the config.
 
 # Locomotion analysis
+Locomotion metrics capture baseline activity and exploration dynamics in the open field and provide a first indication of how pharmacological interventions alter behavioural output. The analyses in this section quantify speed, distance travelled, and time-resolved movement patterns across dose conditions.
 
 ## Average Speed
 
@@ -88,7 +91,7 @@ Parameters for this analysis live under `analysis.speed_distance` in the config.
 
 ## Dispersion (MEC)
 
-Compute dispersion via MEC radius distributions and plot dose-vs-control histograms.
+Compute spatial dispersion using Minimum Enclosing Circle (MEC) radius distributions and plot dose-vs-control histograms. This metric reflects how widely an animal explores the arena, providing a measure of spatial spread and overall exploratory range under different pharmacological conditions.
 
 ```bash
 python -m dosedynamics dispersion --config configs/default.yaml
@@ -97,6 +100,7 @@ python -m dosedynamics dispersion --config configs/default.yaml
 Parameters for this analysis live under `analysis.dispersion` in the config.
 
 # Measures of stress and anxiety 
+In addition to locomotion and spatial spread, the toolbox includes behavioural measures that are commonly used in open-field paradigms to probe stress- and anxiety-related responses. Metrics such as thigmotaxis (wall-hugging behaviour), freezing and patterns of exploration provide indirect but widely adopted indicators of emotional or arousal state. Within DoseDynamics, these measures are used to examine how pharmacological interventions influence not only overall activity levels, but also spatial preference and risk-avoidance behaviours that are typically associated with stress or anxiety-like states.
 
 ## Thigmotaxis
 
