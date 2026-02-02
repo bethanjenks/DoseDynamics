@@ -38,7 +38,9 @@ python -m dosedynamics run --config configs/default.yaml \
 
 ## Arena Corner Annotation
 
-Use the arena annotation step to click the 4 corners of the arena and save them to an HDF5 file.
+This step is used to manually define the four arena corners for each recording using an interactive OpenCV window. The user clicks the corners directly on a video frame, and the selected coordinates are saved to an HDF5 file.
+
+These arena coordinates are then used to transform tracked positions into a common reference space, correcting for differences in camera angle, perspective distortion, or slight shifts in arena placement between recordings. This ensures that spatial analyses (e.g. center occupancy, wall distance, dispersion) are comparable across animals and sessions. 
 
 ```bash
 python -m dosedynamics arena-points --config configs/default.yaml
